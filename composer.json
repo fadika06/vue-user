@@ -1,6 +1,6 @@
 {
-    "name": "bantenprov/kegiatan",
-    "description": "Nama Kegiatan",
+    "name": "bantenprov/user",
+    "description": "Nama user",
     "authors": [
         {
             "name": "bantenprov",
@@ -9,9 +9,9 @@
     ],
     "license": "MIT",
     "support": {
-      "source": "https://github.com/bantenprov/kegiatan,",
-      "issues": "https://github.com/bantenprov/kegiatan/issues",
-      "wiki": "https://github.com/bantenprov/kegiatan/wiki"
+      "source": "https://github.com/bantenprov/user,",
+      "issues": "https://github.com/bantenprov/user/issues",
+      "wiki": "https://github.com/bantenprov/user/wiki"
     },
     "require": {
         "php": ">=5.6.4",
@@ -22,7 +22,7 @@
             "src/helpers/helpers.php"
         ],
         "psr-4": {
-            "Bantenprov\\Kegiatan\\": "src"
+            "Bantenprov\\User\\": "src"
         }
     },
     "minimum-stability": "dev"
