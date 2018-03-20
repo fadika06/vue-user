@@ -48,12 +48,6 @@ $ git clone https://github.com/bantenprov/user.git
     Bantenprov\User\UserServiceProvider::class,
 ```
 
-#### Lakukan migrate :
-
-```bash
-$ php artisan migrate
-```
-
 #### Publish database seeder :
 
 ```bash
@@ -77,32 +71,8 @@ $ php artisan db:seed --class=BantenprovUserSeeder
 
 ```bash
 $ php artisan vendor:publish --tag=user-assets
-$ php artisan vendor:publish --tag=user-public
 ```
 #### Tambahkan route di dalam file : `resources/assets/js/routes.js` :
-
-```javascript
-{
-    path: '/dashboard',
-    redirect: '/dashboard/home',
-    component: layout('Default'),
-    children: [
-        //== ...
-       {
-        path: '/dashboard/user',
-        components: {
-            main: resolve => require(['./components/views/bantenprov/user/DashboardUser.vue'], resolve),
-            navbar: resolve => require(['./components/Navbar.vue'], resolve),
-            sidebar: resolve => require(['./components/Sidebar.vue'], resolve)
-        },
-        meta: {
-            title: "User"
-        }
-      }
-        //== ...
-    ]
-},
-```
 
 ```javascript
 {
@@ -114,9 +84,9 @@ $ php artisan vendor:publish --tag=user-public
         {
             path: '/admin/user',
             components: {
-                main: resolve => require(['./components/bantenprov/user/User.index.vue'], resolve),
-                navbar: resolve => require(['./components/Navbar.vue'], resolve),
-                sidebar: resolve => require(['./components/Sidebar.vue'], resolve)
+                main: resolve => require(['~/components/bantenprov/user/User.index.vue'], resolve),
+                navbar: resolve => require(['~/components/Navbar.vue'], resolve),
+                sidebar: resolve => require(['~/components/Sidebar.vue'], resolve)
             },
             meta: {
                 title: "User"
@@ -125,9 +95,9 @@ $ php artisan vendor:publish --tag=user-public
         {
             path: '/admin/user/create',
             components: {
-                main: resolve => require(['./components/bantenprov/user/User.add.vue'], resolve),
-                navbar: resolve => require(['./components/Navbar.vue'], resolve),
-                sidebar: resolve => require(['./components/Sidebar.vue'], resolve)
+                main: resolve => require(['~/components/bantenprov/user/User.add.vue'], resolve),
+                navbar: resolve => require(['~/components/Navbar.vue'], resolve),
+                sidebar: resolve => require(['~/components/Sidebar.vue'], resolve)
             },
             meta: {
                 title: "User"
@@ -136,9 +106,9 @@ $ php artisan vendor:publish --tag=user-public
         {
             path: '/admin/user/:id',
             components: {
-                main: resolve => require(['./components/bantenprov/user/User.show.vue'], resolve),
-                navbar: resolve => require(['./components/Navbar.vue'], resolve),
-                sidebar: resolve => require(['./components/Sidebar.vue'], resolve)
+                main: resolve => require(['~/components/bantenprov/user/User.show.vue'], resolve),
+                navbar: resolve => require(['~/components/Navbar.vue'], resolve),
+                sidebar: resolve => require(['~/components/Sidebar.vue'], resolve)
             },
             meta: {
                 title: "User"
@@ -147,9 +117,9 @@ $ php artisan vendor:publish --tag=user-public
         {
             path: '/admin/user/:id/edit',
             components: {
-                main: resolve => require(['./components/bantenprov/user/User.edit.vue'], resolve),
-                navbar: resolve => require(['./components/Navbar.vue'], resolve),
-                sidebar: resolve => require(['./components/Sidebar.vue'], resolve)
+                main: resolve => require(['~/components/bantenprov/user/User.edit.vue'], resolve),
+                navbar: resolve => require(['~/components/Navbar.vue'], resolve),
+                sidebar: resolve => require(['~/components/Sidebar.vue'], resolve)
             },
             meta: {
                 title: "User"
@@ -168,11 +138,11 @@ $ php artisan vendor:publish --tag=user-public
     childType: 'collapse',
     childItem: [
         //== ...
-        {
-          name: 'User',
-          link: '/dashboard/user',
-          icon: 'fa fa-angle-double-right'
-      }
+         {
+            name: 'User',
+            link: '/admin/user',
+            icon: 'fa fa-angle-double-right'
+        }
         //== ...
     ]
 },
@@ -194,43 +164,3 @@ $ php artisan vendor:publish --tag=user-public
     ]
 },
 ```
-
-#### Tambahkan components `resources/assets/js/components.js` :
-
-```javascript
-
-//== Example Vuetable
-
-import User from './components/bantenprov/user/User.chart.vue';
-Vue.component('echarts-user', User);
-
-import UserKota from './components/bantenprov/user/UserKota.chart.vue';
-Vue.component('echarts-dpp-bank-dinia-kota', UserKota);
-
-import UserTahun from './components/bantenprov/user/UserTahun.chart.vue';
-Vue.component('echarts-dpp-bank-dinia-tahun', UserTahun);
-
-import UserAdminShow from './components/bantenprov/user/UserAdmin.show.vue';
-Vue.component('admin-view-user-tahun', UserAdminShow);
-
-//== Echarts User
-
-import UserBar01 from './components/views/bantenprov/user/UserBar01.vue';
-Vue.component('user-bar-01', UserBar01);
-
-import UserBar02 from './components/views/bantenprov/user/UserBar02.vue';
-Vue.component('user-bar-02', UserBar02);
-
-//== mini bar charts
-import UserBar03 from './components/views/bantenprov/user/UserBar03.vue';
-Vue.component('user-bar-03', UserBar03);
-
-import UserPie01 from './components/views/bantenprov/user/UserPie01.vue';
-Vue.component('user-pie-01', UserPie01);
-
-import UserPie02 from './components/views/bantenprov/user/UserPie02.vue';
-Vue.component('user-pie-02', UserPie02);
-
-//== mini pie charts
-import UserPie03 from './components/views/bantenprov/user/UserPie03.vue';
-Vue.component('user-pie-03', UserPie03);

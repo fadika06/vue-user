@@ -20,22 +20,18 @@ class BantenprovUserSeederUser extends Seeder
 
         $users = (object) [
             (object) [
-                'label' => 'User 1',
-                'description' => 'User 1',
-            ],
-            (object) [
-                'label' => 'User 2',
-                'description' => 'User 2',
+                'name' => 'Administrator',
+                'email' => 'admin@dev.bantenprov.com',
+                'password' => '123456'
             ]
         ];
 
         foreach ($users as $user) {
             $model = User::updateOrCreate(
                 [
-                    'label' => $user->label,
-                ],
-                [
-                    'description' => $user->description,
+                    'name' => $user->name,                
+                    'email' => $user->email,
+                    'password' => bcrypt($user->password),
                 ]
             );
             $model->save();
