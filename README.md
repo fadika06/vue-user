@@ -1,8 +1,8 @@
 # User
 
 [![Join the chat at https://gitter.im/user/Lobby](https://badges.gitter.im/user/Lobby.svg)](https://gitter.im/user/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/bantenprov/user/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/bantenprov/user/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/bantenprov/user/badges/build.png?b=master)](https://scrutinizer-ci.com/g/bantenprov/user/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/bantenprov/vue-user/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/bantenprov/vue-user/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/bantenprov/vue-user/badges/build.png?b=master)](https://scrutinizer-ci.com/g/bantenprov/vue-user/build-status/master)
 [![Latest Stable Version](https://poser.pugx.org/bantenprov/user/v/stable)](https://packagist.org/packages/bantenprov/user)
 [![Total Downloads](https://poser.pugx.org/bantenprov/user/downloads)](https://packagist.org/packages/bantenprov/user)
 [![Latest Unstable Version](https://poser.pugx.org/bantenprov/user/v/unstable)](https://packagist.org/packages/bantenprov/user)
