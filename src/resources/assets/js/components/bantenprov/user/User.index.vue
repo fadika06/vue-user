@@ -26,7 +26,7 @@
 
       <div class="table-responsive">
         <vuetable ref="vuetable"
-          api-url="/api/user"
+          api-url="/api/vue-user"
           :fields="fields"
           :sort-order="sortOrder"
           :css="css.table"
@@ -38,9 +38,9 @@
           @vuetable:loaded="onLoaded">
           <template slot="actions" slot-scope="props">
             <div class="btn-group pull-right" role="group" style="display:flex;">
-              <!--<button class="btn btn-info btn-sm" role="button" @click="viewRow(props.rowData)">
+              <button class="btn btn-info btn-sm" role="button" @click="viewRow(props.rowData)">
                 <span class="fa fa-eye"></span>
-              </button>-->
+              </button>
               <button class="btn btn-warning btn-sm" role="button" @click="editRow(props.rowData)">
                 <span class="fa fa-pencil"></span>
               </button>
@@ -92,15 +92,15 @@ export default {
           dataClass: 'right aligned'
         },
         {
-          name: 'label',
-          title: 'Label',
-          sortField: 'label',
+          name: 'name',
+          title: 'Name',
+          sortField: 'name',
           titleClass: 'center aligned'
         },
         {
-          name: 'description',
-          title: 'Description',
-          sortField: 'description',
+          name: 'email',
+          title: 'Email',
+          sortField: 'email',
           titleClass: 'center aligned'
         },
         {
@@ -111,7 +111,7 @@ export default {
         },
       ],
       sortOrder: [{
-        field: 'label',
+        field: 'name',
         direction: 'asc'
       }],
       moreParams: {},
@@ -151,7 +151,7 @@ export default {
       let app = this;
 
       if (confirm('Do you really want to delete it?')) {
-        axios.delete('/api/user/' + rowData.id)
+        axios.delete('/api/vue-user/' + rowData.id)
           .then(function(response) {
             if (response.data.status == true) {
               app.$refs.vuetable.reload()

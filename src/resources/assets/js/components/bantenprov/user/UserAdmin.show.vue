@@ -73,6 +73,7 @@
                   <td>Abu Ali Al-Husein Ibnu Sina</td>
                   <td>986-1037</td>
                 </tr>
+                <tr>
                   <th scope="row">3</th>
                   <td>Abu Nasir Al-Farabi</td>
                   <td>870-900</td>

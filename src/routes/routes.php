@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['prefix' => 'api/user', 'middleware' => ['web']], function() {
+Route::group(['prefix' => 'api/vue-user', 'middleware' => ['web']], function() {
     $controllers = (object) [
         'index'     => 'Bantenprov\User\Http\Controllers\UserController@index',
         'create'    => 'Bantenprov\User\Http\Controllers\UserController@create',

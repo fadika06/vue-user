@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Bantenprov\User\Facades\UserFacade;
 
 /* Models */
-use Bantenprov\User\Models\Bantenprov\User\User;
+use App\User;
 
 /* Etc */
 use Validator;
@@ -49,8 +49,8 @@ class UserController extends Controller
         if ($request->exists('filter')) {
             $query->where(function($q) use($request) {
                 $value = "%{$request->filter}%";
-                $q->where('label', 'like', $value)
-                    ->orWhere('description', 'like', $value);
+                $q->where('name', 'like', $value)
+                    ->orWhere('email', 'like', $value);
             });
         }
 
@@ -88,25 +88,17 @@ class UserController extends Controller
         $user = $this->user;
 
         $validator = Validator::make($request->all(), [
-            'label' => 'required|max:16|unique:users,label',
-            'description' => 'max:255',
+            'name' => 'required|unique:users,name',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required',
         ]);
 
         if($validator->fails()){
-            $check = $user->where('label',$request->label)->whereNull('deleted_at')->count();
-
-            if ($check > 0) {
-                $response['message'] = 'Failed, label ' . $request->label . ' already exists';
-            } else {
-                $user->label = $request->input('label');
-                $user->description = $request->input('description');
-                $user->save();
-
-                $response['message'] = 'success';
-            }
+            $response['message'] = 'Failed, name or email already exists';
         } else {
-            $user->label = $request->input('label');
-            $user->description = $request->input('description');
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->password = bcrypt($request->input('password'));
             $user->save();
 
             $response['message'] = 'success';
@@ -160,35 +152,33 @@ class UserController extends Controller
     {
         $user = $this->user->findOrFail($id);
 
-        if ($request->input('old_label') == $request->input('label'))
+        if ($request->input('old_name') == $request->input('name') || $request->input('old_email') == $request->input('email'))
         {
             $validator = Validator::make($request->all(), [
-                'label' => 'required|max:16',
-                'description' => 'max:255',
+                'name' => 'required',
+                'email' => 'email|required',
             ]);
         } else {
             $validator = Validator::make($request->all(), [
-                'label' => 'required|max:16|unique:users,label',
-                'description' => 'max:255',
+                'name' => 'required|unique:users,name',
+                'email' => 'email|required|unique:users,email',
             ]);
         }
 
-        if ($validator->fails()) {
-            $check = $user->where('label',$request->label)->whereNull('deleted_at')->count();
-
-            if ($check > 0) {
-                $response['message'] = 'Failed, label ' . $request->label . ' already exists';
-            } else {
-                $user->label = $request->input('label');
-                $user->description = $request->input('description');
-                $user->save();
-
-                $response['message'] = 'success';
-            }
+        if ($validator->fails()) {  
+            $response['message'] = 'failed, user or email already exist';            
         } else {
-            $user->label = $request->input('label');
-            $user->description = $request->input('description');
-            $user->save();
+            if($request->input('password') == ""){
+                $user->name = $request->input('name');
+                $user->email = $request->input('email');
+                $user->save();
+            }else{
+                $user->name = $request->input('name');
+                $user->email = $request->input('email');
+                $user->password = bcrypt($request->input('password'));
+                $user->save();
+            }
+            
 
             $response['message'] = 'success';
         }

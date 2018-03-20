@@ -13,36 +13,53 @@
     </div>
 
     <div class="card-body">
-      <vue-form class="form-horizontal form-validation" :state="state" @submit.prevent="onSubmit">
-        <div class="form-row">
+      <vue-form class="form-horizontal form-validation" :state="state" @submit.prevent="onSubmit">        
+        <div class="form-row">          
           <div class="col-md">
-            <validate tag="div">
-              <input type="hidden" v-model="model.old_label" name="old_label">
-              <input class="form-control" v-model="model.label" required autofocus name="label" type="text" placeholder="Label">
+            <validate tag="div">              
+              <input class="form-control" v-model="model.name" required autofocus name="name" type="text" placeholder="Name">
 
-              <field-messages name="label" show="$invalid && $submitted" class="text-danger">
+              <field-messages name="name" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
-                <small class="form-text text-danger" slot="required">Label is a required field</small>
+                <small class="form-text text-danger" slot="required">Name is a required field</small>
               </field-messages>
             </validate>
           </div>
+        </div>
 
+        <div class="form-row mt-4"> 
           <div class="col-md">
             <validate tag="div">
-              <input class="form-control" v-model="model.description" name="description" type="text" placeholder="Description">
+              <input class="form-control" v-model="model.email" name="email" type="email" placeholder="Email">
 
-              <field-messages name="description" show="$invalid && $submitted" class="text-danger">
+              <field-messages name="email" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Email is a required field</small>
               </field-messages>
             </validate>
           </div>
+        </div>
 
+        <div class="form-row mt-4"> 
+          <div class="col-md">
+            <validate tag="div">
+              <input class="form-control" v-model="model.password" name="password" type="password" placeholder="Password">
+
+              <field-messages name="password" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Password is a required field</small>
+              </field-messages>
+            </validate>
+          </div>
+        </div>
+
+        <div class="form-row mt-4"> 
           <div class="col-auto">
             <button type="submit" class="btn btn-primary">Submit</button>
 
             <button type="reset" class="btn btn-secondary" @click="reset">Reset</button>
           </div>
-        </div>
+        </div>        
       </vue-form>
     </div>
   </div>
@@ -51,12 +68,13 @@
 <script>
 export default {
   mounted() {
-    axios.get('api/user/' + this.$route.params.id + '/edit')
+    axios.get('api/vue-user/' + this.$route.params.id + '/edit')
       .then(response => {
         if (response.data.status == true) {
-          this.model.label = response.data.user.label;
-          this.model.old_label = response.data.user.label;
-          this.model.description = response.data.user.description;
+          this.model.name = response.data.user.name;
+          this.model.email = response.data.user.email;
+          this.model.old_name = response.data.user.name;
+          this.model.old_email = response.data.user.email;
         } else {
           alert('Failed');
         }
@@ -70,8 +88,11 @@ export default {
     return {
       state: {},
       model: {
-        label: "",
-        description: ""
+        name: "",
+        email: "",
+        password: "",
+        old_name : "",
+        old_email: ""
       }
     }
   },
@@ -82,10 +103,12 @@ export default {
       if (this.state.$invalid) {
         return;
       } else {
-        axios.put('api/user/' + this.$route.params.id, {
-            label: this.model.label,
-            description: this.model.description,
-            old_label: this.model.old_label
+        axios.put('api/vue-user/' + this.$route.params.id, {
+            name: this.model.name,
+            email: this.model.email,
+            password: this.model.password,
+            old_email: this.model.old_email,
+            old_name: this.model.old_name
           })
           .then(response => {
             if (response.data.status == true) {
@@ -105,11 +128,13 @@ export default {
       }
     },
     reset() {
-      axios.get('api/user/' + this.$route.params.id + '/edit')
+      axios.get('api/vue-user/' + this.$route.params.id + '/edit')
         .then(response => {
           if (response.data.status == true) {
-            this.model.label = response.data.user.label;
-            this.model.description = response.data.user.description;
+            this.model.name = response.data.user.name;
+            this.model.email = response.data.user.email;
+            this.model.old_name = response.data.user.name;
+            this.model.old_email = response.data.user.email;
           } else {
             alert('Failed');
           }
