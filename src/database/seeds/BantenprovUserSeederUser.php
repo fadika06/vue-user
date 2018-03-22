@@ -5,7 +5,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
 /* Models */
-use Bantenprov\User\Models\Bantenprov\User\User;
+use App\User;
 
 class BantenprovUserSeederUser extends Seeder
 {
@@ -21,7 +21,7 @@ class BantenprovUserSeederUser extends Seeder
         $users = (object) [
             (object) [
                 'name' => 'Administrator',
-                'email' => 'admin@dev.bantenprov.com',
+                'email' => 'admin@dev.bantenprov.go.id',
                 'password' => '123456'
             ]
         ];
