@@ -64,7 +64,7 @@ $ composer dump-autoload
 #### Lakukan seeding :
 
 ```bash
-$ php artisan db:seed --class=BantenprovUserSeeder
+$ php artisan db:seed --class=BantenprovUserSeederUser
 ```
 
 #### Lakukan publish component vue :
