@@ -1,14 +1,14 @@
 # User
 
-[![Join the chat at https://gitter.im/user/Lobby](https://badges.gitter.im/user/Lobby.svg)](https://gitter.im/user/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/vue-user/Lobby](https://badges.gitter.im/vue-user/Lobby.svg)](https://gitter.im/vue-user/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/bantenprov/vue-user/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/bantenprov/vue-user/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/bantenprov/vue-user/badges/build.png?b=master)](https://scrutinizer-ci.com/g/bantenprov/vue-user/build-status/master)
-[![Latest Stable Version](https://poser.pugx.org/bantenprov/user/v/stable)](https://packagist.org/packages/bantenprov/user)
-[![Total Downloads](https://poser.pugx.org/bantenprov/user/downloads)](https://packagist.org/packages/bantenprov/user)
-[![Latest Unstable Version](https://poser.pugx.org/bantenprov/user/v/unstable)](https://packagist.org/packages/bantenprov/user)
-[![License](https://poser.pugx.org/bantenprov/user/license)](https://packagist.org/packages/bantenprov/user)
-[![Monthly Downloads](https://poser.pugx.org/bantenprov/user/d/monthly)](https://packagist.org/packages/bantenprov/user)
-[![Daily Downloads](https://poser.pugx.org/bantenprov/user/d/daily)](https://packagist.org/packages/bantenprov/user)
+[![Latest Stable Version](https://poser.pugx.org/bantenprov/vue-user/v/stable)](https://packagist.org/packages/bantenprov/user)
+[![Total Downloads](https://poser.pugx.org/bantenprov/vue-user/downloads)](https://packagist.org/packages/bantenprov/user)
+[![Latest Unstable Version](https://poser.pugx.org/bantenprov/vue-user/v/unstable)](https://packagist.org/packages/bantenprov/user)
+[![License](https://poser.pugx.org/bantenprov/vue-user/license)](https://packagist.org/packages/bantenprov/user)
+[![Monthly Downloads](https://poser.pugx.org/bantenprov/vue-user/d/monthly)](https://packagist.org/packages/bantenprov/user)
+[![Daily Downloads](https://poser.pugx.org/bantenprov/vue-user/d/daily)](https://packagist.org/packages/bantenprov/user)
 
 
 # User
@@ -84,7 +84,7 @@ $ php artisan vendor:publish --tag=user-assets
         {
             path: '/admin/user',
             components: {
-                main: resolve => require(['~/components/bantenprov/user/User.index.vue'], resolve),
+                main: resolve => require(['~/components/bantenprov/vue-user/User.index.vue'], resolve),
                 navbar: resolve => require(['~/components/Navbar.vue'], resolve),
                 sidebar: resolve => require(['~/components/Sidebar.vue'], resolve)
             },
@@ -93,9 +93,9 @@ $ php artisan vendor:publish --tag=user-assets
             }
         },
         {
-            path: '/admin/user/create',
+            path: '/admin/vue-user/create',
             components: {
-                main: resolve => require(['~/components/bantenprov/user/User.add.vue'], resolve),
+                main: resolve => require(['~/components/bantenprov/vue-user/User.add.vue'], resolve),
                 navbar: resolve => require(['~/components/Navbar.vue'], resolve),
                 sidebar: resolve => require(['~/components/Sidebar.vue'], resolve)
             },
@@ -104,9 +104,9 @@ $ php artisan vendor:publish --tag=user-assets
             }
         },
         {
-            path: '/admin/user/:id',
+            path: '/admin/vue-user/:id',
             components: {
-                main: resolve => require(['~/components/bantenprov/user/User.show.vue'], resolve),
+                main: resolve => require(['~/components/bantenprov/vue-user/User.show.vue'], resolve),
                 navbar: resolve => require(['~/components/Navbar.vue'], resolve),
                 sidebar: resolve => require(['~/components/Sidebar.vue'], resolve)
             },
@@ -115,9 +115,9 @@ $ php artisan vendor:publish --tag=user-assets
             }
         },
         {
-            path: '/admin/user/:id/edit',
+            path: '/admin/vue-user/:id/edit',
             components: {
-                main: resolve => require(['~/components/bantenprov/user/User.edit.vue'], resolve),
+                main: resolve => require(['~/components/bantenprov/vue-user/User.edit.vue'], resolve),
                 navbar: resolve => require(['~/components/Navbar.vue'], resolve),
                 sidebar: resolve => require(['~/components/Sidebar.vue'], resolve)
             },
