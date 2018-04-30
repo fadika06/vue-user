@@ -84,7 +84,7 @@ $ php artisan vendor:publish --tag=user-assets
         {
             path: '/admin/user',
             components: {
-                main: resolve => require(['~/components/bantenprov/vue-user/User.index.vue'], resolve),
+                main: resolve => require(['~/components/bantenprov/user/User.index.vue'], resolve),
                 navbar: resolve => require(['~/components/Navbar.vue'], resolve),
                 sidebar: resolve => require(['~/components/Sidebar.vue'], resolve)
             },
@@ -93,9 +93,9 @@ $ php artisan vendor:publish --tag=user-assets
             }
         },
         {
-            path: '/admin/vue-user/create',
+            path: '/admin/user/create',
             components: {
-                main: resolve => require(['~/components/bantenprov/vue-user/User.add.vue'], resolve),
+                main: resolve => require(['~/components/bantenprov/user/User.add.vue'], resolve),
                 navbar: resolve => require(['~/components/Navbar.vue'], resolve),
                 sidebar: resolve => require(['~/components/Sidebar.vue'], resolve)
             },
@@ -104,9 +104,9 @@ $ php artisan vendor:publish --tag=user-assets
             }
         },
         {
-            path: '/admin/vue-user/:id',
+            path: '/admin/user/:id',
             components: {
-                main: resolve => require(['~/components/bantenprov/vue-user/User.show.vue'], resolve),
+                main: resolve => require(['~/components/bantenprov/user/User.show.vue'], resolve),
                 navbar: resolve => require(['~/components/Navbar.vue'], resolve),
                 sidebar: resolve => require(['~/components/Sidebar.vue'], resolve)
             },
@@ -115,9 +115,9 @@ $ php artisan vendor:publish --tag=user-assets
             }
         },
         {
-            path: '/admin/vue-user/:id/edit',
+            path: '/admin/user/:id/edit',
             components: {
-                main: resolve => require(['~/components/bantenprov/vue-user/User.edit.vue'], resolve),
+                main: resolve => require(['~/components/bantenprov/user/User.edit.vue'], resolve),
                 navbar: resolve => require(['~/components/Navbar.vue'], resolve),
                 sidebar: resolve => require(['~/components/Sidebar.vue'], resolve)
             },
