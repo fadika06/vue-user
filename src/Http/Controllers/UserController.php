@@ -9,6 +9,7 @@ use Bantenprov\User\Facades\UserFacade;
 
 /* Models */
 use App\User;
+use App\Role;
 
 /* Etc */
 use Validator;
@@ -26,9 +27,10 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user, Role $role)
     {
         $this->user = $user;
+        $this->role = $role;
     }
 
     /**
@@ -55,7 +57,7 @@ class UserController extends Controller
         }
 
         $perPage = request()->has('per_page') ? (int) request()->per_page : null;
-        $response = $query->paginate($perPage);
+        $response = $query->with('roles')->paginate($perPage);
 
         return response()->json($response)
             ->header('Access-Control-Allow-Origin', '*')
@@ -165,8 +167,8 @@ class UserController extends Controller
             ]);
         }
 
-        if ($validator->fails()) {  
-            $response['message'] = 'failed, user or email already exist';            
+        if ($validator->fails()) {
+            $response['message'] = 'failed, user or email already exist';
         } else {
             if($request->input('password') == ""){
                 $user->name = $request->input('name');
@@ -178,7 +180,7 @@ class UserController extends Controller
                 $user->password = bcrypt($request->input('password'));
                 $user->save();
             }
-            
+
 
             $response['message'] = 'success';
         }
@@ -186,6 +188,45 @@ class UserController extends Controller
         $response['status'] = true;
 
         return response()->json($response);
+    }
+
+    public function userAddRole($user_id)
+    {
+
+        $user = $this->user->with('roles')->find($user_id);
+        $roles = $this->role->all();
+
+        $response['roles'] = $roles;
+        $response['user'] = $user;
+        $response['status'] = true;
+
+        return response()->json($response);
+
+    }
+
+    public function userStoreRole($user_id, Request $request)
+    {
+        if(\Auth::user()->hasRole(['superadministrator'])){
+            if($request->new_role != ''){
+                $this->user->find($user_id)->detachRole($request->old_role);
+                $this->user->find($user_id)->attachRole($request->new_role);
+            }
+            $message = 'Update role berhasil.';
+            $typem   = 'success';
+            $title   = 'Success';
+        }else{
+            $title   = 'Failed';
+            $typem   = 'error';
+            $message = 'Anda tidak memiliki hak akses untuk ini.';
+        }
+
+        $response['title']      = $title;
+        $response['typem']      = $typem;
+        $response['message']    = $message;
+        $response['status']     = true;
+
+        return response()->json($response);
+
     }
 
     /**

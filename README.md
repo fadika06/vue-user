@@ -115,6 +115,17 @@ $ php artisan vendor:publish --tag=user-assets
             }
         },
         {
+          path: '/admin/user/user-add-role/:id',
+          components: {
+              main: resolve => require(['~/components/bantenprov/user/User.AddRole.vue'], resolve),
+              navbar: resolve => require(['~/components/Navbar.vue'], resolve),
+              sidebar: resolve => require(['~/components/Sidebar.vue'], resolve)
+          },
+          meta: {
+              title: "User"
+          }
+        },
+        {
             path: '/admin/user/:id/edit',
             components: {
                 main: resolve => require(['~/components/bantenprov/user/User.edit.vue'], resolve),
