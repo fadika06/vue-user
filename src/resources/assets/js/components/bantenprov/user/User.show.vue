@@ -1,13 +1,24 @@
 <template>
-  <div>
+    <div>
 		<div class="card mb-3">
-			<div class="card-header d-flex flex-row align-items-center justify-content-between">
+			<div class="card-header">
 				<span>
 					<i class="fa fa-table" aria-hidden="true"></i> User [ {{ model.name }} ]
 				</span>
-				<button class="btn btn-primary btn-sm ml-2" role="button" @click="back">
-					<i class="fa fa-arrow-left" aria-hidden="true"></i>
-				</button>
+
+        <ul class="nav nav-pills card-header-pills pull-right">
+          <li class="nav-item">
+            <button class="btn btn-success btn-sm ml-2" role="button" @click="goToEdit">
+              <i class="fa fa-pencil" aria-hidden="true"></i> Edit
+            </button>
+            <button class="btn btn-warning btn-sm ml-2" role="button" @click="goToSetRole">
+              <i class="fa fa-key" aria-hidden="true"></i> Set Role
+            </button>
+            <button class="btn btn-primary btn-sm ml-2" role="button" @click="back">
+              <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </button>
+          </li>
+        </ul>
 			</div>
 
 			<div class="card-body">
@@ -20,39 +31,10 @@
 
           <dt class="col-2">Password</dt>
 					<dd class="col-10">{{ model.password }}</dd>
-
-          <dt class="col-2">Role</dt>
-					<dd class="col-10">{{ current_role.display_name }}</dd>
 				</dl>
 			</div>
 
-	  </div>
-
-    <div class="card">
-      <div class="card-header">
-        <i class="fa fa-key" aria-hidden="true"></i> Roles
-      </div>
-
-      <div class="card-body">
-        <vue-form class="form-horizontal form-validation" :state="state" @submit.prevent="onSubmit">
-            <div class="form-check" v-for="role in roles" :key="role.id">
-                <input class="form-check-input" name="role" type="radio" v-model="model.role" :value="role" :disabled="role.id == current_role.id">
-                <label class="form-check-label">
-                {{ role.display_name }}
-                </label>
-            </div>
-
-            <div class="form-row mt-4">
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-
-                    <button type="reset" class="btn btn-secondary">Reset</button>
-                </div>
-            </div>
-        </vue-form>
-      </div>
-    </div>
-
+	    </div>
   </div>
 
 </template>
@@ -60,20 +42,11 @@
 <script>
 export default {
   mounted() {
-    axios.get('api/vue-user/user-add-role/' + this.$route.params.id)
+    axios.get('api/vue-user/' + this.$route.params.id)
       .then(response => {
         if (response.data.status == true) {
           this.model.email = response.data.user.email;
           this.model.name = response.data.user.name;
-
-          if(response.data.user.roles[0]){
-            this.current_role.id = response.data.user.roles[0].id;
-            this.current_role.display_name = response.data.user.roles[0].display_name;
-          }
-
-          response.data.roles.forEach(role => {
-            this.roles.push(role);
-          });
         } else {
           alert('Failed');
         }
@@ -89,36 +62,16 @@ export default {
       model: {
         email: "",
         name: "",
-        password: "*********",
-        role: '',
-      },
-      roles: [],
-      current_role: {
-        id:0,
-        display_name: '-'
-        }
+        password: "*********"
+	  }
     }
   },
   methods: {
-  onSubmit(){
-    axios.post('api/vue-user/user-add-role/' + this.$route.params.id + '/store', {
-      old_role : this.current_role.id,
-      new_role : this.model.role.id
-    })
-      .then(response => {
-        if (response.data.status == true) {
-          if(response.data.typem == 'success'){
-            this.current_role = this.model.role;
-          }
-          this.toast_message(response.data.typem, response.data.title, response.data.message );
-        } else {
-          this.toast_message(response.data.typem, 'Failed', 'Failed update role' );
-        }
-      })
-      .catch(function(response) {
-        this.toast_message('error', 'Error#', 'Error#500' );
-        window.location.href = '#/admin/vue-user';
-	  });
+  goToEdit(){
+    window.location = '#/admin/user/'+this.$route.params.id+'/edit';
+  },
+  goToSetRole(){
+    window.location = '#/admin/user/user-add-role/'+this.$route.params.id;
   },
 	toast_message(typem,title,message,event) {
       switch (typem) {

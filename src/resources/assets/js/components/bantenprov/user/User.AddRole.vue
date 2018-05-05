@@ -65,7 +65,11 @@ export default {
         if (response.data.status == true) {
           this.model.email = response.data.user.email;
           this.model.name = response.data.user.name;
-          this.current_role = response.data.user.roles[0];
+
+          if(response.data.user.roles[0]){
+            this.current_role.id = response.data.user.roles[0].id;
+            this.current_role.display_name = response.data.user.roles[0].display_name;
+          }
 
           response.data.roles.forEach(role => {
             this.roles.push(role);
@@ -87,10 +91,12 @@ export default {
         name: "",
         password: "*********",
         role: '',
-
       },
       roles: [],
-      current_role: ''
+      current_role: {
+        id:0,
+        display_name: '-'
+        }
     }
   },
   methods: {
