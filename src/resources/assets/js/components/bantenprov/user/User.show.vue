@@ -71,7 +71,7 @@ export default {
     window.location = '#/admin/user/'+this.$route.params.id+'/edit';
   },
   goToSetRole(){
-    window.location = '#/admin/user/add-user-role/'+this.$route.params.id;
+    window.location = '#/admin/user/user-add-role/'+this.$route.params.id;
   },
 	toast_message(typem,title,message,event) {
       switch (typem) {
