@@ -194,6 +194,7 @@ class UserController extends Controller
     {
 
         $user = $this->user->with('roles')->find($user_id);
+
         $roles = $this->role->all();
 
         $response['roles'] = $roles;
@@ -229,6 +230,18 @@ class UserController extends Controller
 
     }
 
+    public function removeRole($user_id)
+    {
+        $user = $this->user->with('roles')->find($user_id);
+
+        if($user->roles->count() > 0){
+            foreach ($user->roles as $role) {
+                $this->user->detachRole($role->id);
+            }
+        }
+
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -237,7 +250,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+
         $user = $this->user->findOrFail($id);
+
+        $this->removeRole($id);
 
         if ($user->delete()) {
             $response['status'] = true;
