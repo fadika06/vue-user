@@ -38,6 +38,9 @@
           @vuetable:loaded="onLoaded">
           <template slot="actions" slot-scope="props">
             <div class="btn-group pull-right" role="group" style="display:flex;">
+              <button class="btn btn-success btn-sm" role="button" @click="addRole(props.rowData)">
+                <span class="fa fa-key"></span>
+              </button>
               <button class="btn btn-info btn-sm" role="button" @click="viewRow(props.rowData)">
                 <span class="fa fa-eye"></span>
               </button>
@@ -138,6 +141,9 @@ export default {
     }
   },
   methods: {
+    addRole(rowData) {
+      window.location = '#/admin/user/user-add-role/' + rowData.id;
+    },
     createRow() {
       window.location = '#/admin/user/create';
     },
