@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use \Bantenprov\Sekolah\Models\Bantenprov\Sekolah\AdminSekolah;
 
 /**
  * Usage : 
@@ -8,7 +9,7 @@ use Illuminate\Database\Seeder;
  * [2] $ php artisan db:seed --class=UserSeeder
  */
 
-class BantenprovUserSeederUser extends Seeder
+class BantenprovUserSeeder extends Seeder
 {
     /* text color */
     protected $RED     ="\033[0;31m";
@@ -22,7 +23,7 @@ class BantenprovUserSeederUser extends Seeder
 
     /* File name */
     /* location : /databse/seeds/file_name.csv */
-    protected $fileName = "BantenprovUserSeederUser.csv";
+    protected $fileName = "BantenprovUserSeeder.csv";
 
     /* text info : default (true) */
     protected $textInfo = true;
@@ -55,17 +56,34 @@ class BantenprovUserSeederUser extends Seeder
             $password['p1'] = rand(1376123,999234999);
             $password['p2'] = rand(785482,9785482);            
 
-            $this->model->create([
-                'name' => $data['name'],
-                'email' => $data['email'],
+            $admin_sekolah = $this->model->create([
+                //'id'    => $data['id'],
+                'name'  => strtolower($data['name']),
+                'email' => strtolower($data['email']),
                 'password' => bcrypt($password['p1'].$password['p2'])
             ]);
-            
+
+            if($data['sekolah_id'] != 0){
+                // attach role to user
+                $admin_sekolah->attachRole(5);
+
+                //  create admin sekolah
+                
+                AdminSekolah::create([
+                    'sekolah_id' => $data['sekolah_id'],
+                    'admin_sekolah_id' => $admin_sekolah->id,
+                    'user_id' => '1',
+                ]);
+            }elseif($data['sekolah_id'] == 0){
+                $admin_sekolah->attachRole(1);
+            }
+
             if($this->textInfo){                
                 echo "============[Account]============\n";
-                $this->orangeText('name : ').$this->greenText($data['name']);
+                
+                $this->orangeText('name : ').$this->greenText(strtolower($data['name']));
                 echo"\n";
-                $this->orangeText('email : ').$this->greenText($data['email']);
+                $this->orangeText('email : ').$this->greenText(strtolower($data['email']));
                 echo"\n";
                 $this->orangeText('password : ').$this->greenText($password['p1'].$password['p2']);
                 echo"\n";
@@ -73,6 +91,7 @@ class BantenprovUserSeederUser extends Seeder
             }
             
         }
+
 
         $this->greenText('[ SEEDER DONE ]');
         echo"\n\n";
@@ -98,7 +117,7 @@ class BantenprovUserSeederUser extends Seeder
         $all_data = array();
         $row = 1;
         while(($data = fgetcsv($file, 1000, ",")) !== FALSE){            
-            $all_data[] = ['name' => $data[0], 'email' => $data[1]];
+            $all_data[] = ['name' => $data[0], 'email' => $data[1], 'sekolah_id' => $data[2]];
         }        
         fclose($file);
 
